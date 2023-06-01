@@ -26,15 +26,14 @@ namespace TFTBuddy
         private static IHostBuilder CreateHostBuilder()
         {
             return Host.CreateDefaultBuilder()
-            .ConfigureAppConfiguration(configurationBuilder =>
-            {
-                configurationBuilder.Sources.Clear();
-                configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            })
             .ConfigureServices((hostContext, services) =>
             {
-                RegisterProviders(services);
-                RegisterViewModels(services);
+                // Service Modules
+                services.AddServiceModule<ConfigurationServiceModule, IConfiguration>(hostContext.Configuration);
+                services.AddServiceModule<ViewModelServiceModule>();
+                services.AddServiceModule<ProviderServiceModule>();
+
+                services.AddTransient<IRiotWebClient, RiotWebClient>();
             });
         }
 
@@ -44,22 +43,6 @@ namespace TFTBuddy
             navigationProvider.Register<MainWindowViewModel, MainWindow>();
 
             return navigationProvider;
-        }
-
-        private static void RegisterProviders(IServiceCollection services)
-        {
-            services.AddSingleton<INavigationProvider, NavigationProvider>()
-                    .AddSingleton<IMessageProvider, MessageProvider>();
-        }
-
-        private static void RegisterClients(IServiceCollection services)
-        {
-            services.AddTransient<IRiotApiClient, RiotApiClient>();
-        }
-
-        private static void RegisterViewModels(IServiceCollection services)
-        {
-            services.AddTransient<MainWindowViewModel>();
         }
         #endregion Methods..
     }
