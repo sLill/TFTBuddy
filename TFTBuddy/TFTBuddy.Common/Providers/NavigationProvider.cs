@@ -33,7 +33,10 @@ namespace TFTBuddy.Common
 
                 // Display the view based on its' control type
                 if (view is Window window)
+                {
                     Application.Current.MainWindow = window;
+                    window.Show();
+                }
                 else
                     Application.Current.MainWindow.Content = view;
 
