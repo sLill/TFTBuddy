@@ -1,17 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
+using TFTBuddy.Common;
+using TFTBuddy.ViewModels;
 
 namespace TFTBuddy
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        #region Methods..
+        #region Event Handlers..
+        private async void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var hostBuilder = CreateHostBuilder().Build();
+            await hostBuilder.StartAsync();
+        }
+        #endregion Event Handlers..
+
+        private static IHostBuilder CreateHostBuilder()
+        {
+            return Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration(configurationBuilder =>
+            {
+                configurationBuilder.Sources.Clear();
+                configurationBuilder.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+            })
+            .ConfigureServices((hostContext, services) =>
+            {
+                RegisterProviders(services);
+                RegisterViewModels(services);
+            });
+        }
+
+        private static void RegisterProviders(IServiceCollection services)
+        {
+            services.AddSingleton<INavigationProvider, NavigationProvider>()
+                    .AddSingleton<IMessageProvider, MessageProvider>();
+        }
+
+        private static void RegisterViewModels(IServiceCollection services)
+        {
+            services.AddTransient<MainWindowViewModel>();
+        }
+
+        #endregion Methods..
     }
 }
