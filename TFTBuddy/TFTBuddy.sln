@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFTBuddy.ViewModels", "TFTB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFTBuddy.Common", "TFTBuddy.Common\TFTBuddy.Common.csproj", "{64D79CEE-3BEA-4873-AA77-FD16FE6AAC67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFTBuddy.Core", "TFTBuddy.Core\TFTBuddy.Core.csproj", "{D60797BE-F1ED-486C-9A2F-7F79535C5B13}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{64D79CEE-3BEA-4873-AA77-FD16FE6AAC67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64D79CEE-3BEA-4873-AA77-FD16FE6AAC67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64D79CEE-3BEA-4873-AA77-FD16FE6AAC67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D60797BE-F1ED-486C-9A2F-7F79535C5B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D60797BE-F1ED-486C-9A2F-7F79535C5B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D60797BE-F1ED-486C-9A2F-7F79535C5B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D60797BE-F1ED-486C-9A2F-7F79535C5B13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

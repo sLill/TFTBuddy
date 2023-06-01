@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Windows\" />
-    <Folder Include="Views\UserControls\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
 
 </Project>
