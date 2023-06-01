@@ -2,7 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
+using System.Windows.Navigation;
 using TFTBuddy.Common;
+using TFTBuddy.UI;
 using TFTBuddy.ViewModels;
 
 namespace TFTBuddy
@@ -13,8 +15,11 @@ namespace TFTBuddy
         #region Event Handlers..
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            var hostBuilder = CreateHostBuilder().Build();
-            await hostBuilder.StartAsync();
+            var host = CreateHostBuilder().Build();
+
+            InitializeNavigation(host);
+
+            await host.StartAsync();
         }
         #endregion Event Handlers..
 
@@ -33,6 +38,12 @@ namespace TFTBuddy
             });
         }
 
+        private void InitializeNavigation(IHost host)
+        {
+            var navigationProvider = host.Services.GetService<INavigationProvider>();
+            navigationProvider.Register<MainWindowViewModel, MainWindow>();
+        }
+
         private static void RegisterProviders(IServiceCollection services)
         {
             services.AddSingleton<INavigationProvider, NavigationProvider>()
@@ -43,7 +54,6 @@ namespace TFTBuddy
         {
             services.AddTransient<MainWindowViewModel>();
         }
-
         #endregion Methods..
     }
 }
