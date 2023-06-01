@@ -26,10 +26,12 @@ namespace TFTBuddy.Common
 
             if (_viewModelViewMap.ContainsKey(viewModelType))
             {
+                // Create an instance of the view and bind its' DataContext
                 var viewType = _viewModelViewMap[viewModelType];
                 var view = (Control)Activator.CreateInstance(viewType);
                 view.DataContext = viewModel;
 
+                // Display the view based on its' control type
                 if (view is Window window)
                     Application.Current.MainWindow = window;
                 else

@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TFTBuddy.UI\TFTBuddy.UI.csproj" />
+  </ItemGroup>
+
 </Project>

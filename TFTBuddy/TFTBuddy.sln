@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFTBuddy", "TFTBuddy\TFTBuddy.csproj", "{8D256654-82B7-464B-AD86-3BB5675842AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{263ED76E-AB5F-4C8E-9FFE-5AB0917ED400} = {263ED76E-AB5F-4C8E-9FFE-5AB0917ED400}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFTBuddy.Data", "TFTBuddy.Data\TFTBuddy.Data.csproj", "{B63E6202-F45D-41F8-A892-5C8BE44DD7B5}"
 EndProject

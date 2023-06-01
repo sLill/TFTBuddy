@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TFTBuddy
+namespace TFTBuddy.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
