@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TFTBuddy.Common\TFTBuddy.Common.csproj" />
     <ProjectReference Include="..\TFTBuddy.Configuration\TFTBuddy.Configuration.csproj" />
+    <ProjectReference Include="..\TFTBuddy.Logging\TFTBuddy.Logging.csproj" />
     <ProjectReference Include="..\TFTBuddy.UI\TFTBuddy.UI.csproj" />
     <ProjectReference Include="..\TFTBuddy.ViewModels\TFTBuddy.ViewModels.csproj" />
   </ItemGroup>

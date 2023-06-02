@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using TFTBuddy.Common;
+using TFTBuddy.Logging;
 using TFTBuddy.Configuration;
 using TFTBuddy.Core;
 using TFTBuddy.UI;
@@ -34,9 +35,12 @@ namespace TFTBuddy
                 {
                     var applicationConfiguration = ApplicationConfiguration.Load();
                     Application.Current.Exit += (sender, e) => applicationConfiguration.Save();
-                   
+
                     return applicationConfiguration;
-                });
+                })
+
+                // Logging
+                .AddSingleton<IApplicationLogger, ApplicationLogger>();
 
                 // Service Modules
                 services.AddServiceModule<ViewModelServiceModule>();

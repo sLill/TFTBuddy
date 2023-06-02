@@ -1,5 +1,6 @@
 ﻿using TFTBuddy.Common;
 using TFTBuddy.Configuration;
+using TFTBuddy.Logging;
 
 namespace TFTBuddy.Core
 {
@@ -7,6 +8,7 @@ namespace TFTBuddy.Core
     {
         #region Fields..
         private readonly IApplicationConfiguration _applicationConfiguration;
+        private readonly IApplicationLogger _applicationLogger;
 
         private string _region
         => _applicationConfiguration.Region.GetCustomAttribute<ValueAttribute>().Value.ToString();
@@ -19,9 +21,10 @@ namespace TFTBuddy.Core
         #endregion Properties..
 
         #region Constructors..
-        public RiotWebService(IApplicationConfiguration applicationConfiguration)
+        public RiotWebService(IApplicationConfiguration applicationConfiguration, IApplicationLogger applicationLogger)
         {
             _applicationConfiguration = applicationConfiguration;
+            _applicationLogger = applicationLogger;
         }
         #endregion Constructors..
 
@@ -245,7 +248,10 @@ namespace TFTBuddy.Core
                 else
                     throw new Exception($"GET request to {endpoint} failed with status code {response.StatusCode}");
             }
-            catch (Exception ex) { }
+            catch (Exception ex) 
+            {
+                _applicationLogger.LogException(ex);
+            }
 
             return result;
         }
@@ -266,7 +272,10 @@ namespace TFTBuddy.Core
                 using (Stream fileStream = new FileStream(localPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
                     await contentStream.CopyToAsync(fileStream);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) 
+            { 
+                _applicationLogger.LogException(ex); 
+            }
 
             return result;
         }
@@ -304,7 +313,10 @@ namespace TFTBuddy.Core
                 else
                     throw new Exception($"GET request to {endpoint} failed with status code {response.StatusCode}");
             }
-            catch (Exception ex) { }
+            catch (Exception ex) 
+            {
+                _applicationLogger.LogException(ex);
+            }
 
             return result;
         }

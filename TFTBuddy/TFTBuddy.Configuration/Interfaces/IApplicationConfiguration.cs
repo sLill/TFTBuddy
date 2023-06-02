@@ -18,6 +18,8 @@ namespace TFTBuddy.Configuration
         #endregion Properties..
 
         #region Methods..
+        string GetLoggingDirectory();
+
         string GetPatchDirectory();
 
         string GetPatchDataDirectory();

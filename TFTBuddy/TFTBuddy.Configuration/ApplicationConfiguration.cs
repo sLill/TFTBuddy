@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Security.Policy;
 using TFTBuddy.Common;
 
 namespace TFTBuddy.Configuration
@@ -65,6 +66,16 @@ namespace TFTBuddy.Configuration
         #region Methods..
         #region Event Handlers..
         #endregion Event Handlers..				
+
+        public string GetLoggingDirectory()
+        {
+            string directory = Path.Combine(_applicationDirectory, "Logs");
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return directory;
+        }
 
         public string GetPatchDirectory()
         {
