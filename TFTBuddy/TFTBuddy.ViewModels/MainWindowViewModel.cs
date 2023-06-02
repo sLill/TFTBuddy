@@ -5,16 +5,16 @@ namespace TFTBuddy.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         #region Fields..
-        private readonly IRiotWebClient _riotApiClient;
+        private readonly IRiotWebService _riotWebService;
         #endregion Fields..
 
         #region Properties..
         #endregion Properties..
 
         #region Constructors..
-        public MainWindowViewModel(IRiotWebClient riotApiClient)
+        public MainWindowViewModel(IRiotWebService riotWebService)
         {
-            _riotApiClient = riotApiClient;
+            _riotWebService = riotWebService;
         }
         #endregion Constructors..
 
@@ -22,7 +22,7 @@ namespace TFTBuddy.ViewModels
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
-            await _riotApiClient.GetAsync("");
+            var serverStatus = await _riotWebService.GetServerStatusAsync();
         }
         #endregion Methods..
     }

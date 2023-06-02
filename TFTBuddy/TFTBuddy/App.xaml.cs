@@ -43,7 +43,7 @@ namespace TFTBuddy
                 services.AddServiceModule<ProviderServiceModule>();
 
                 // Misc
-                services.AddTransient<IRiotWebClient, RiotWebClient>();
+                services.AddTransient<IRiotWebService, RiotWebService>();
             });
         }
 

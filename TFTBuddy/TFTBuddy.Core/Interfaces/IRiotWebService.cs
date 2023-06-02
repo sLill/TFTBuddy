@@ -1,9 +1,9 @@
 ﻿namespace TFTBuddy.Core
 {
-    public interface IRiotWebClient
+    public interface IRiotWebService
     {
         #region Methods..
-        Task<string> GetAsync(string endpoint);
+        Task<string> GetServerStatusAsync();
         #endregion Methods..
     }
 }
