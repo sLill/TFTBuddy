@@ -43,15 +43,15 @@ namespace TFTBuddy.Core
 
         Task<Uri> DataDragon_TFT_GetTraitImageAsync(string assetName);
 
-        Task<string> TFT_GetServerStatusAsync();
+        Task<ServerStatusData> TFT_GetServerStatusAsync();
 
-        Task<string> TFT_GetSummonerBySummonerNameAsync(string summonerName);
+        Task<SummonerData> TFT_GetSummonerBySummonerNameAsync(string summonerName);
 
-        Task<string> TFT_GetChallengerLeague();
+        Task<ChallengerLeagueData> TFT_GetChallengerLeague();
 
-        Task<string> TFT_GetMatchIdsByPUUID(string puuid, int count);
+        Task<PlayerMatchesData> TFT_GetMatchIdsByPUUID(string puuid, int count);
 
-        Task<string> TFT_GetMatchByMatchId(string matchId);
+        Task<MatchData> TFT_GetMatchByMatchId(string matchId);
         #endregion Methods..
     }
 }

@@ -186,7 +186,7 @@ namespace TFTBuddy.Core
 
         private async Task<T> DataDragon_GetDataAsync<T>(string endpoint, Uri? localCacheUri) where T : class
         {
-            T result = default;
+            T data = default;
 
             try
             {
@@ -194,24 +194,24 @@ namespace TFTBuddy.Core
                 if (localCacheUri != null && File.Exists(localCacheUri.AbsolutePath))
                 {
                     string dataString = await File.ReadAllTextAsync(localCacheUri.AbsolutePath);
-                    result = JsonConvert.DeserializeObject<T>(dataString);
+                    data = JsonConvert.DeserializeObject<T>(dataString);
                 }
                 else
                 {
                     var httpClient = new HttpClient();
 
                     var response = await httpClient.GetAsync(endpoint);
+                    _applicationLogger.Log($"{nameof(DataDragon_GetDataAsync)}<{typeof(T)}>()   ResponseCode:{response.StatusCode}");
+
                     if (response.IsSuccessStatusCode)
                     {
                         string responseString = await response.Content.ReadAsStringAsync();
-                        result = JsonConvert.DeserializeObject<T>(responseString);
+                        data = JsonConvert.DeserializeObject<T>(responseString);
 
                         // Write data to local cache
                         if (localCacheUri != null)
                             await File.WriteAllTextAsync(localCacheUri.AbsolutePath, responseString);
                     }
-                    else
-                        _applicationLogger.Log($"GET request to {endpoint} failed with status code {response.StatusCode}");
                 }
             }
             catch (Exception ex) 
@@ -219,7 +219,7 @@ namespace TFTBuddy.Core
                 _applicationLogger.LogException(ex);
             }
 
-            return result;
+            return data;
         }
 
         private async Task<string> DataDragon_DownloadAsync(string url, string localPath)
@@ -246,24 +246,28 @@ namespace TFTBuddy.Core
             return result;
         }
 
-        public async Task<string> TFT_GetServerStatusAsync()
-            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/status/v1/platform-data");
+        public async Task<ServerStatusData> TFT_GetServerStatusAsync()
+            => await TFT_GetDataAsync<ServerStatusData>($"https://{_server}.api.riotgames.com/tft/status/v1/platform-data");
 
-        public async Task<string> TFT_GetSummonerBySummonerNameAsync(string summonerName)
-            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/summoner/v1/summoners/by-name/{summonerName}");
+        public async Task<SummonerData> TFT_GetSummonerBySummonerNameAsync(string summonerName)
+            => await TFT_GetDataAsync<SummonerData>($"https://{_server}.api.riotgames.com/tft/summoner/v1/summoners/by-name/{summonerName}");
 
-        public async Task<string> TFT_GetChallengerLeague()
-            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/league/v1/challenger");
+        public async Task<ChallengerLeagueData> TFT_GetChallengerLeague()
+            => await TFT_GetDataAsync<ChallengerLeagueData>($"https://{_server}.api.riotgames.com/tft/league/v1/challenger");
 
-        public async Task<string> TFT_GetMatchIdsByPUUID(string puuid, int count)
-            => await TFT_GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?start=0&count={count}");
-
-        public async Task<string> TFT_GetMatchByMatchId(string matchId)
-            => await TFT_GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/{matchId}");
-
-        private async Task<string> TFT_GetAsync(string endpoint)
+        public async Task<PlayerMatchesData> TFT_GetMatchIdsByPUUID(string puuid, int count)
         {
-            string result = null;
+            var playerMatches = await TFT_GetDataAsync<List<string>>($"https://{_region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?start=0&count={count}");
+            var playerMatchesData = new PlayerMatchesData() { MatchIds = playerMatches };
+            return playerMatchesData;
+        }
+
+        public async Task<MatchData> TFT_GetMatchByMatchId(string matchId)
+            => await TFT_GetDataAsync<MatchData>($"https://{_region}.api.riotgames.com/tft/match/v1/matches/{matchId}");
+
+        private async Task<T> TFT_GetDataAsync<T>(string endpoint) where T : class
+        {
+            T data = default;
 
             try
             {
@@ -274,17 +278,20 @@ namespace TFTBuddy.Core
                 httpClient.DefaultRequestHeaders.Add("X-Riot-Token", apiKey);
 
                 var response = await httpClient.GetAsync(endpoint);
+                _applicationLogger.Log($"{nameof(TFT_GetDataAsync)}<{typeof(T)}>()   ResponseCode:{response.StatusCode}");
+
                 if (response.IsSuccessStatusCode)
-                    result = await response.Content.ReadAsStringAsync();
-                else
-                    throw new Exception($"GET request to {endpoint} failed with status code {response.StatusCode}");
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    data = JsonConvert.DeserializeObject<T>(responseString);
+                }
             }
             catch (Exception ex) 
             {
                 _applicationLogger.LogException(ex);
             }
 
-            return result;
+            return data;
         }
         #endregion Methods..
     }
