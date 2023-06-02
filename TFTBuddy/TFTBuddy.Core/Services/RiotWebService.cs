@@ -1,4 +1,5 @@
-﻿using TFTBuddy.Configuration;
+﻿using TFTBuddy.Common;
+using TFTBuddy.Configuration;
 
 namespace TFTBuddy.Core
 {
@@ -6,6 +7,12 @@ namespace TFTBuddy.Core
     {
         #region Fields..
         private readonly IApplicationConfiguration _applicationConfiguration;
+
+        private string _region
+        => _applicationConfiguration.Region.GetCustomAttribute<ValueAttribute>().Value.ToString();
+
+        private string _server
+            => _applicationConfiguration.Server.GetCustomAttribute<ValueAttribute>().Value.ToString();
         #endregion Fields..
 
         #region Properties..
@@ -21,7 +28,31 @@ namespace TFTBuddy.Core
         #region Methods..
         public async Task<string> GetServerStatusAsync()
         {
-            var result = await GetAsync(@"https://na1.api.riotgames.com/lol/status/v4/platform-data");
+            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/status/v1/platform-data");
+            return result;
+        }
+
+        public async Task<string> GetSummonerBySummonerNameAsync(string summonerName)
+        {
+            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/summoner/v1/summoners/by-name/{summonerName}");
+            return result;
+        }
+
+        public async Task<string> GetChallengerLeague()
+        {
+            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/league/v1/challenger");
+            return result;
+        }
+
+        public async Task<string> GetMatchIdsByPUUID(string puuid, int count)
+        {
+            var result = await GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?start=0&count={count}");
+            return result;
+        }
+
+        public async Task<string> GetMatchByMatchId(string matchId)
+        {
+            var result = await GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/{matchId}");
             return result;
         }
 

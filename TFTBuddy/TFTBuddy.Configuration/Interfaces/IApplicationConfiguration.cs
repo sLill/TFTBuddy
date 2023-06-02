@@ -1,9 +1,15 @@
-﻿namespace TFTBuddy.Configuration
+﻿using TFTBuddy.Common;
+
+namespace TFTBuddy.Configuration
 {
     public interface IApplicationConfiguration
     {
         #region Properties..
         string RiotApiKey { get; set; }
+
+        Region Region { get; set; }
+
+        Server Server { get; set; }
         #endregion Properties..
 
         #region Methods..

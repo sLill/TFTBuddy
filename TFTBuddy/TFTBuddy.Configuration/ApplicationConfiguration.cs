@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using TFTBuddy.Common;
 
 namespace TFTBuddy.Configuration
 {
@@ -19,6 +20,24 @@ namespace TFTBuddy.Configuration
             set { _riotApiKey = value; }
         }
         #endregion RiotApiKey
+
+        #region Region
+        private Region _region = Region.AMERICAS;
+        public Region Region
+        {
+            get { return _region; }
+            set { _region = value; }
+        }
+        #endregion Region
+
+        #region Server
+        private Server _server = Server.NA1;
+        public Server Server
+        {
+            get { return _server; }
+            set { _server = value; }
+        }
+        #endregion Server
         #endregion Properties..
 
         #region Constructors..

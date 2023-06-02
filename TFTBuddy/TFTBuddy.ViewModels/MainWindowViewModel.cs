@@ -22,7 +22,12 @@ namespace TFTBuddy.ViewModels
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
-            var serverStatus = await _riotWebService.GetServerStatusAsync();
+
+            var serverData = await _riotWebService.GetServerStatusAsync();
+            var summonerData = await _riotWebService.GetSummonerBySummonerNameAsync("");
+            var challengerLeagueData = await _riotWebService.GetChallengerLeague();
+            var playerMatchesData = await _riotWebService.GetMatchIdsByPUUID("", 20);
+            var matchData = await _riotWebService.GetMatchByMatchId("");
         }
         #endregion Methods..
     }
