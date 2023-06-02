@@ -1,25 +1,27 @@
-﻿namespace TFTBuddy.Core
+﻿using TFTBuddy.Data;
+
+namespace TFTBuddy.Core
 {
     public interface IRiotWebService
     {
         #region Methods..
-        Task<string> DataDragon_GetDataDragonVersionHistoryAsync();
+        Task<DataDragonVersionData> DataDragon_GetDataDragonVersionHistoryAsync();
 
-        Task<string> DataDragon_GetRealmVersionHistoryAsync();
+        Task<RealmVersionData> DataDragon_GetRealmVersionHistoryAsync();
 
-        Task<string> DataDragon_GetLanguagesAsync();
+        Task<LanguagesData> DataDragon_GetLanguagesAsync();
 
-        Task<string> DataDragon_TFT_GetAugmentDataAsync();
+        Task<AugmentData> DataDragon_TFT_GetAugmentDataAsync();
      
-        Task<string> DataDragon_TFT_GetChampionDataAsync();
+        Task<ChampionData> DataDragon_TFT_GetChampionDataAsync();
 
-        Task<string> DataDragon_TFT_GetHeroAugmentDataAsync();
+        Task<HeroAugmentData> DataDragon_TFT_GetHeroAugmentDataAsync();
 
-        Task<string> DataDragon_TFT_GetItemDataAsync();
+        Task<ItemData> DataDragon_TFT_GetItemDataAsync();
 
-        Task<string> DataDragon_TFT_GetTacticianDataAsync();
+        Task<TacticianData> DataDragon_TFT_GetTacticianDataAsync();
 
-        Task<string> DataDragon_TFT_GetTraitDataAsync();
+        Task<TraitData> DataDragon_TFT_GetTraitDataAsync();
 
         Task<Uri> DataDragon_TFT_GetArenaImageAsync(string assetName);
 

@@ -32,7 +32,7 @@ namespace TFTBuddy.Logging
             var fileInfo = new FileInfo(_logFilePath);
             if (fileInfo.Exists && fileInfo.Length > _maxFileSize)
             {
-                // Keep the last 20% of the log data
+                // Keep the last 20% of log data
                 string[] lines = File.ReadAllLines(_logFilePath);
                 int linesToPreserve = (int)(lines.Length * 0.2);
                 string[] lastLines = lines.Skip(lines.Length - linesToPreserve).ToArray();
