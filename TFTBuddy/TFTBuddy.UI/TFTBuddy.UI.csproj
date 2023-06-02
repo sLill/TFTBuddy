@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net7.0-windows7.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="UserControls\Syncfusion\" />
 		<Folder Include="Views\UserControls\" />
 	</ItemGroup>
 

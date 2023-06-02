@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using TFTBuddy.Core;
-using TFTBuddy.Data;
+﻿using TFTBuddy.Core;
 
 namespace TFTBuddy.ViewModels
 {
@@ -24,7 +22,10 @@ namespace TFTBuddy.ViewModels
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
+        }
 
+        private async Task GetDataAsync()
+        {
             // DataDragon
             var dataDragonVersionData = await _riotWebService.DataDragon_GetDataDragonVersionHistoryAsync();
             var realmVersionData = await _riotWebService.DataDragon_GetRealmVersionHistoryAsync();
@@ -42,7 +43,7 @@ namespace TFTBuddy.ViewModels
             var summonerData = await _riotWebService.TFT_GetSummonerBySummonerNameAsync("RippStudwell");
             var challengerLeagueData = await _riotWebService.TFT_GetChallengerLeague();
             var playerMatchesData = await _riotWebService.TFT_GetMatchIdsByPUUID("4ZrffQuNm68IePh7fw6dGUoPN7oUrsL8jiwI8X_yehqm2x96V2oxOKJv1nwbBp61WBaN2NhZk-UPFA", 20);
-            var matchData = await _riotWebService.TFT_GetMatchByMatchId("NA1_4670875706");
+            var matchData = await _riotWebService.TFT_GetMatchByMatchId("NA1_4672622973");
         }
         #endregion Methods..
     }
