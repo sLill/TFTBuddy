@@ -8,6 +8,8 @@ using TFTBuddy.Configuration;
 using TFTBuddy.Core;
 using TFTBuddy.UI;
 using TFTBuddy.ViewModels;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace TFTBuddy
 {
@@ -17,13 +19,20 @@ namespace TFTBuddy
         #region Event Handlers..
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
+            await InitializeAsync();
+        }
+        #endregion Event Handlers..
+
+        private async Task InitializeAsync()
+        {
+            RegisterSyncfusionLicense();
+
             var host = CreateHostBuilder().Build();
             await host.StartAsync();
 
             var navigationProvider = InitializeNavigation(host);
             await navigationProvider.NavigateAsync<MainWindowViewModel>();
         }
-        #endregion Event Handlers..
 
         private static IHostBuilder CreateHostBuilder()
         {
@@ -57,6 +66,12 @@ namespace TFTBuddy
             navigationProvider.Register<MainWindowViewModel, MainWindow>();
 
             return navigationProvider;
+        }
+
+        private void RegisterSyncfusionLicense()
+        {
+            var syncfusionLicense = File.ReadAllText(@"Licenses/Syncfusion_license.txt");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionLicense);
         }
         #endregion Methods..
     }
