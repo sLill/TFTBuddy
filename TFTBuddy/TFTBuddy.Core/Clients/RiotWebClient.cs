@@ -1,41 +1,45 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
+using TFTBuddy.Configuration;
 
 namespace TFTBuddy.Core
 {
     public class RiotWebClient : IRiotWebClient
     {
         #region Fields..
-        private readonly IOptionsSnapshot<TFTBuddyConfiguration> _tftBuddyConfig;
+        private readonly IApplicationConfiguration _applicationConfiguration;
         #endregion Fields..
 
         #region Properties..
         #endregion Properties..
 
         #region Constructors..
-        public RiotWebClient(IOptionsSnapshot<TFTBuddyConfiguration> tftBuddyConfig)
+        public RiotWebClient(IApplicationConfiguration applicationConfiguration)
         {
-            _tftBuddyConfig = tftBuddyConfig;
+            _applicationConfiguration = applicationConfiguration;
         }
         #endregion Constructors..
 
         #region Methods..
         public async Task<string> GetAsync(string apiEndpoint)
         {
-            string apiKey = _tftBuddyConfig.Value.RiotApiKey;
+            string result = null;
 
-            var httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-
-            var response = await httpClient.GetAsync(apiEndpoint);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var content = await response.Content.ReadAsStringAsync();
-                return content;
+                string apiKey = _applicationConfiguration.RiotApiKey;
+
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+
+                var response = await httpClient.GetAsync(apiEndpoint);
+                if (response.IsSuccessStatusCode)
+                    result = await response.Content.ReadAsStringAsync();
+                else
+                    throw new Exception($"GET request to {apiEndpoint} failed with status code {response.StatusCode}");
             }
-            else
-                throw new Exception($"GET request to {apiEndpoint} failed with status code {response.StatusCode}");
+            catch (Exception ex) { }
+
+            return result;
         }
         #endregion Methods..
     }

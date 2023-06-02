@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using TFTBuddy.Common;
+using TFTBuddy.Configuration;
 using TFTBuddy.Core;
 using TFTBuddy.UI;
 using TFTBuddy.ViewModels;
@@ -28,11 +29,20 @@ namespace TFTBuddy
             return Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {
+                // Config
+                services.AddSingleton<IApplicationConfiguration>(serviceProvider =>
+                {
+                    var applicationConfiguration = ApplicationConfiguration.Load();
+                    Application.Current.Exit += (sender, e) => applicationConfiguration.Save();
+                   
+                    return applicationConfiguration;
+                });
+
                 // Service Modules
-                services.AddServiceModule<ConfigurationServiceModule, IConfiguration>(hostContext.Configuration);
                 services.AddServiceModule<ViewModelServiceModule>();
                 services.AddServiceModule<ProviderServiceModule>();
 
+                // Misc
                 services.AddTransient<IRiotWebClient, RiotWebClient>();
             });
         }
