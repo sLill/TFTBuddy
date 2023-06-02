@@ -1,4 +1,5 @@
-﻿using TFTBuddy.Common;
+﻿using System.Security.Policy;
+using TFTBuddy.Common;
 
 namespace TFTBuddy.Configuration
 {
@@ -14,15 +15,14 @@ namespace TFTBuddy.Configuration
         Server Server { get; set; }
 
         string Patch { get; set; }
-
-        string PatchDirectory { get; }
-
-        string PatchDataDirectory { get; }
-
-        string PatchImageDirectory { get; }
         #endregion Properties..
 
         #region Methods..
+        string GetPatchDirectory();
+
+        string GetPatchDataDirectory();
+
+        string GetPatchImageDirectory();
         #endregion Methods..
     }
 }

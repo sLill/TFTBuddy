@@ -47,7 +47,6 @@
 
         Task<Uri> DataDragon_TFT_GetTraitImageAsync(string assetName);
 
-
         Task<string> TFT_GetServerStatusAsync();
 
         Task<string> TFT_GetSummonerBySummonerNameAsync(string summonerName);

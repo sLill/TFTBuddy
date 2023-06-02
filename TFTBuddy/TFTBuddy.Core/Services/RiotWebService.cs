@@ -38,7 +38,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetArenaDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-arena.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-arena.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -54,7 +54,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetAugmentDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-augment.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-augment.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -70,7 +70,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetChampionDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-champion.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-champion.json"));
 
             if (File.Exists(uri.AbsolutePath))
                data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -86,7 +86,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetHeroAugmentDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-hero-augments.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-hero-augments.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -102,7 +102,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetItemDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-item.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-item.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -118,7 +118,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetQueueDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-queues.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-queues.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -134,7 +134,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetRegaliaDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-regalia.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-regalia.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -150,7 +150,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetTacticianDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-tactician.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-tactician.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -166,7 +166,7 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_TFT_GetTraitDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-trait.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-trait.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
@@ -181,7 +181,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetArenaImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-arena", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-arena", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-arena/{imageName}.png", uri.AbsolutePath);
@@ -191,7 +191,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetAugmentImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-augment", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-augment", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-augment/{imageName}.png", uri.AbsolutePath);
@@ -201,7 +201,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetAugmentContainerImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-augment-container", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-augment-container", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-augment-container/{imageName}.png", uri.AbsolutePath);
@@ -211,7 +211,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetChampionImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-champion", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-champion", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-champion/{imageName}.png", uri.AbsolutePath);
@@ -221,7 +221,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetHeroAugmentImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-hero-augment", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-hero-augment", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-hero-augment/{imageName}.png", uri.AbsolutePath);
@@ -231,7 +231,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetItemImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-item", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-item", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-item/{imageName}.png", uri.AbsolutePath);
@@ -241,7 +241,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetQueueImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-queue", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-queue", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-queue/{imageName}.png", uri.AbsolutePath);
@@ -251,7 +251,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetRegaliaImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-regalia", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-regalia", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-regalia/{imageName}.png", uri.AbsolutePath);
@@ -261,7 +261,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetTacticianImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-tactician", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-tactician", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-tactician/{imageName}.png", uri.AbsolutePath);
@@ -271,7 +271,7 @@ namespace TFTBuddy.Core
 
         public async Task<Uri> DataDragon_TFT_GetTraitImageAsync(string imageName)
         {
-            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-trait", imageName));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchImageDirectory(), "tft-trait", $"{imageName}.png"));
 
             if (!File.Exists(uri.AbsolutePath))
                 await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-trait/{imageName}.png", uri.AbsolutePath);
@@ -304,6 +304,10 @@ namespace TFTBuddy.Core
 
             try
             {
+                var directory = Path.GetDirectoryName(localPath);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
                 var httpClient = new HttpClient();
                 
                 using (Stream contentStream = await httpClient.GetStreamAsync(url))

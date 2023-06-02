@@ -24,7 +24,8 @@ namespace TFTBuddy.ViewModels
             await base.InitializeAsync();
 
             // DataDragon
-            var versionData = await _riotWebService.DataDragon_GetDataDragonVersionHistoryAsync();
+            //var versionData = await _riotWebService.DataDragon_GetDataDragonVersionHistoryAsync();
+            var itemUri = await _riotWebService.DataDragon_TFT_GetItemImageAsync("TFT_Item_ArchangelsStaff");
 
             // TFT 
             //var serverData = await _riotWebService.TFT_GetServerStatusAsync();

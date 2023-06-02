@@ -55,16 +55,7 @@ namespace TFTBuddy.Configuration
             get { return _patch; }
             set { _patch = value; }
         }
-        #endregion Patch
-
-        public string PatchDirectory
-            => Path.Combine(_applicationDirectory, Patch);
-
-        public string PatchDataDirectory
-            => Path.Combine(PatchDirectory, "Data");
-
-        public string PatchImageDirectory
-            => Path.Combine(PatchDirectory, "Images");
+        #endregion Patch   
         #endregion Properties..
 
         #region Constructors..
@@ -74,6 +65,36 @@ namespace TFTBuddy.Configuration
         #region Methods..
         #region Event Handlers..
         #endregion Event Handlers..				
+
+        public string GetPatchDirectory()
+        {
+            string directory = Path.Combine(_applicationDirectory, Patch);
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return directory;
+        }
+
+        public string GetPatchDataDirectory()
+        {
+            string directory = Path.Combine(GetPatchDirectory(), "Data");
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return directory;
+        }
+
+        public string GetPatchImageDirectory()
+        {
+            string directory = Path.Combine(GetPatchDirectory(), "Images");
+
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return directory;
+        }
 
         public static ApplicationConfiguration Load()
         {
