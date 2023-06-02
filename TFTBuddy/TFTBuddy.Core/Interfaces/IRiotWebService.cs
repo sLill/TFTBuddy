@@ -9,8 +9,6 @@
 
         Task<string> DataDragon_GetLanguagesAsync();
 
-        Task<string> DataDragon_TFT_GetArenaDataAsync();
-
         Task<string> DataDragon_TFT_GetAugmentDataAsync();
      
         Task<string> DataDragon_TFT_GetChampionDataAsync();
@@ -18,10 +16,6 @@
         Task<string> DataDragon_TFT_GetHeroAugmentDataAsync();
 
         Task<string> DataDragon_TFT_GetItemDataAsync();
-
-        Task<string> DataDragon_TFT_GetQueueDataAsync();
-
-        Task<string> DataDragon_TFT_GetRegaliaDataAsync();
 
         Task<string> DataDragon_TFT_GetTacticianDataAsync();
 

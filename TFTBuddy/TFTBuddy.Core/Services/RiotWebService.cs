@@ -35,32 +35,16 @@ namespace TFTBuddy.Core
         public async Task<string> DataDragon_GetLanguagesAsync()
             => await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/languages.json");
 
-        public async Task<string> DataDragon_TFT_GetArenaDataAsync()
-        {
-            string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-arena.json"));
-
-            if (File.Exists(uri.AbsolutePath))
-                data = await File.ReadAllTextAsync(uri.AbsolutePath);
-            else
-            {
-                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-arena.json");
-                await File.WriteAllTextAsync(uri.AbsolutePath, data);
-            }
-
-            return data;
-        }
-
         public async Task<string> DataDragon_TFT_GetAugmentDataAsync()
         {
             string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-augment.json"));
+            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-augments.json"));
 
             if (File.Exists(uri.AbsolutePath))
                 data = await File.ReadAllTextAsync(uri.AbsolutePath);
             else
             {
-                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-augment.json");
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-augments.json");
                 await File.WriteAllTextAsync(uri.AbsolutePath, data);
             }
 
@@ -109,38 +93,6 @@ namespace TFTBuddy.Core
             else
             {
                 data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-item.json");
-                await File.WriteAllTextAsync(uri.AbsolutePath, data);
-            }
-
-            return data;
-        }
-
-        public async Task<string> DataDragon_TFT_GetQueueDataAsync()
-        {
-            string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-queues.json"));
-
-            if (File.Exists(uri.AbsolutePath))
-                data = await File.ReadAllTextAsync(uri.AbsolutePath);
-            else
-            {
-                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-queues.json");
-                await File.WriteAllTextAsync(uri.AbsolutePath, data);
-            }
-
-            return data;
-        }
-
-        public async Task<string> DataDragon_TFT_GetRegaliaDataAsync()
-        {
-            string data = string.Empty;
-            var uri = new Uri(Path.Combine(_applicationConfiguration.GetPatchDataDirectory(), "tft-regalia.json"));
-
-            if (File.Exists(uri.AbsolutePath))
-                data = await File.ReadAllTextAsync(uri.AbsolutePath);
-            else
-            {
-                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-regalia.json");
                 await File.WriteAllTextAsync(uri.AbsolutePath, data);
             }
 

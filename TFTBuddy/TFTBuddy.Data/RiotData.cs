@@ -1,8 +1,177 @@
 ﻿////////////////////////////////////
 // Auto-generated using json2csharp
 ////////////////////////////////////
+using Newtonsoft.Json;
+using TFTBuddy.Data.Converters;
+
 namespace TFTBuddy.Data
 {
+    #region DataDragon..
+    public class DataDragonVersionData
+    {
+        public List<string> Versions { get; set; }
+    }
+
+    public class RealmVersionData
+    {
+        public RealmVersionMetadata n { get; set; }
+        public string v { get; set; }
+        public string l { get; set; }
+        public string cdn { get; set; }
+        public string dd { get; set; }
+        public string lg { get; set; }
+        public string css { get; set; }
+        public int profileiconmax { get; set; }
+        public object store { get; set; }
+
+        public class RealmVersionMetadata
+        {
+            public string item { get; set; }
+            public string rune { get; set; }
+            public string mastery { get; set; }
+            public string summoner { get; set; }
+            public string champion { get; set; }
+            public string profileicon { get; set; }
+            public string map { get; set; }
+            public string language { get; set; }
+            public string sticker { get; set; }
+        }
+    }
+
+    public class LanguagesData
+    {
+        public List<string> Languages { get; set; }
+    }
+
+    public class AugmentData
+    {
+        public string type { get; set; }
+        public string version { get; set; }
+
+        [JsonProperty("augment-container")]
+        public AugmentContainer augmentcontainer { get; set; }
+        public AugmentCollection data { get; set; }
+
+        public class AugmentContainer
+        {
+            public string name { get; set; }
+            public Image image { get; set; }
+        }
+    }
+
+    public class ChampionData
+    {
+        public string type { get; set; }
+        public string version { get; set; }
+        public ChampionCollection data { get; set; }
+    }
+
+    public class HeroAugmentData
+    {
+        public string type { get; set; }
+        public string version { get; set; }
+        public AugmentCollection data { get; set; }
+    }
+
+    public class ItemData
+    {
+        public string type { get; set; }
+        public string version { get; set; }
+        public ItemCollection data { get; set; }
+    }
+
+    public class TacticianData
+    {
+        public TacticianCollection data { get; set; }
+    }
+
+    public class TraitData
+    {
+        public string type { get; set; }
+        public string version { get; set; }
+        public TraitCollection data { get; set; }
+    }
+
+    public class Image
+    {
+        public string full { get; set; }
+        public string sprite { get; set; }
+        public string group { get; set; }
+        public int x { get; set; }
+        public int y { get; set; }
+        public int w { get; set; }
+        public int h { get; set; }
+    }
+
+    public class Augment
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public Image image { get; set; }
+    }
+
+    public class Champion
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public int tier { get; set; }
+        public Image image { get; set; }
+    }
+
+    public class Item
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public Image image { get; set; }
+    }
+
+    public class Tactician
+    {
+        public string id { get; set; }
+        public string tier { get; set; }
+        public string name { get; set; }
+        public Image image { get; set; }
+    }
+
+    public class Trait
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public Image image { get; set; }
+    }
+
+    [JsonConverter(typeof(AugmentCollectionJsonConverter))]
+    public class AugmentCollection
+    {
+        public List<Augment> Augments { get; set; }
+    }
+
+    [JsonConverter(typeof(ChampionCollectionJsonConverter))]
+    public class ChampionCollection
+    {
+        public List<Champion> Champions { get; set; }
+    }
+
+    [JsonConverter(typeof(ItemCollectionJsonConverter))]
+    public class ItemCollection
+    {
+        public List<Item> Items { get; set; }
+    }
+
+    [JsonConverter(typeof(TacticianCollectionJsonConverter))]
+    public class TacticianCollection
+    {
+        public List<Tactician> Tacticians { get; set; }
+    }
+
+    [JsonConverter(typeof(TraitCollectionJsonConverter))]
+    public class TraitCollection
+    {
+        public List<Trait> Traits { get; set; }
+    }
+    #endregion DataDragon..
+
+    #region TFT..
     public class ServerStatusData
     {
         public string id { get; set; }
@@ -153,4 +322,5 @@ namespace TFTBuddy.Data
             }
         }
     }
+    #endregion TFT.. 
 }
