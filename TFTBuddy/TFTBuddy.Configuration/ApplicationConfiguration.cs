@@ -21,6 +21,15 @@ namespace TFTBuddy.Configuration
         }
         #endregion RiotApiKey
 
+        #region Language
+        private string _language = "en_US";
+        public string Language
+        {
+            get { return _language; }
+            set { _language = value; }
+        }
+        #endregion Language
+
         #region Region
         private Region _region = Region.AMERICAS;
         public Region Region
@@ -38,6 +47,24 @@ namespace TFTBuddy.Configuration
             set { _server = value; }
         }
         #endregion Server
+
+        #region Patch
+        private string _patch = "13.11.1";
+        public string Patch
+        {
+            get { return _patch; }
+            set { _patch = value; }
+        }
+        #endregion Patch
+
+        public string PatchDirectory
+            => Path.Combine(_applicationDirectory, Patch);
+
+        public string PatchDataDirectory
+            => Path.Combine(PatchDirectory, "Data");
+
+        public string PatchImageDirectory
+            => Path.Combine(PatchDirectory, "Images");
         #endregion Properties..
 
         #region Constructors..

@@ -26,37 +26,311 @@ namespace TFTBuddy.Core
         #endregion Constructors..
 
         #region Methods..
-        public async Task<string> GetServerStatusAsync()
+        public async Task<string> DataDragon_GetDataDragonVersionHistoryAsync()
+            => await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/api/versions.json");
+
+        public async Task<string> DataDragon_GetRealmVersionHistoryAsync()
+            => await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/realms/na.json");
+
+        public async Task<string> DataDragon_GetLanguagesAsync()
+            => await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/languages.json");
+
+        public async Task<string> DataDragon_TFT_GetArenaDataAsync()
         {
-            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/status/v1/platform-data");
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-arena.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-arena.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetAugmentDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-augment.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-augment.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetChampionDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-champion.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+               data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-champion.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetHeroAugmentDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-hero-augments.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-hero-augments.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetItemDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-item.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-item.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetQueueDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-queues.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-queues.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetRegaliaDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-regalia.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-regalia.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetTacticianDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-tactician.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-tactician.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<string> DataDragon_TFT_GetTraitDataAsync()
+        {
+            string data = string.Empty;
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchDataDirectory, "tft-trait.json"));
+
+            if (File.Exists(uri.AbsolutePath))
+                data = await File.ReadAllTextAsync(uri.AbsolutePath);
+            else
+            {
+                data = await DataDragon_GetAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/data/{_applicationConfiguration.Language}/tft-trait.json");
+                await File.WriteAllTextAsync(uri.AbsolutePath, data);
+            }
+
+            return data;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetArenaImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-arena", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-arena/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetAugmentImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-augment", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-augment/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetAugmentContainerImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-augment-container", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-augment-container/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetChampionImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-champion", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-champion/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetHeroAugmentImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-hero-augment", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-hero-augment/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetItemImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-item", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-item/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetQueueImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-queue", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-queue/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetRegaliaImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-regalia", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-regalia/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetTacticianImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-tactician", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-tactician/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        public async Task<Uri> DataDragon_TFT_GetTraitImageAsync(string imageName)
+        {
+            var uri = new Uri(Path.Combine(_applicationConfiguration.PatchImageDirectory, "tft-trait", imageName));
+
+            if (!File.Exists(uri.AbsolutePath))
+                await DataDragon_DownloadAsync($"https://ddragon.leagueoflegends.com/cdn/{_applicationConfiguration.Patch}/img/tft-trait/{imageName}.png", uri.AbsolutePath);
+
+            return uri;
+        }
+
+        private async Task<string> DataDragon_GetAsync(string endpoint)
+        {
+            string result = null;
+
+            try
+            {
+                var httpClient = new HttpClient();
+
+                var response = await httpClient.GetAsync(endpoint);
+                if (response.IsSuccessStatusCode)
+                    result = await response.Content.ReadAsStringAsync();
+                else
+                    throw new Exception($"GET request to {endpoint} failed with status code {response.StatusCode}");
+            }
+            catch (Exception ex) { }
+
             return result;
         }
 
-        public async Task<string> GetSummonerBySummonerNameAsync(string summonerName)
+        private async Task<string> DataDragon_DownloadAsync(string url, string localPath)
         {
-            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/summoner/v1/summoners/by-name/{summonerName}");
+            string result = null;
+
+            try
+            {
+                var httpClient = new HttpClient();
+                
+                using (Stream contentStream = await httpClient.GetStreamAsync(url))
+                using (Stream fileStream = new FileStream(localPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
+                    await contentStream.CopyToAsync(fileStream);
+            }
+            catch (Exception ex) { }
+
             return result;
         }
 
-        public async Task<string> GetChallengerLeague()
-        {
-            var result = await GetAsync($"https://{_server}.api.riotgames.com/tft/league/v1/challenger");
-            return result;
-        }
+        public async Task<string> TFT_GetServerStatusAsync()
+            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/status/v1/platform-data");
 
-        public async Task<string> GetMatchIdsByPUUID(string puuid, int count)
-        {
-            var result = await GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?start=0&count={count}");
-            return result;
-        }
+        public async Task<string> TFT_GetSummonerBySummonerNameAsync(string summonerName)
+            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/summoner/v1/summoners/by-name/{summonerName}");
 
-        public async Task<string> GetMatchByMatchId(string matchId)
-        {
-            var result = await GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/{matchId}");
-            return result;
-        }
+        public async Task<string> TFT_GetChallengerLeague()
+            => await TFT_GetAsync($"https://{_server}.api.riotgames.com/tft/league/v1/challenger");
 
-        private async Task<string> GetAsync(string apiEndpoint)
+        public async Task<string> TFT_GetMatchIdsByPUUID(string puuid, int count)
+            => await TFT_GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/by-puuid/{puuid}/ids?start=0&count={count}");
+
+        public async Task<string> TFT_GetMatchByMatchId(string matchId)
+            => await TFT_GetAsync($"https://{_region}.api.riotgames.com/tft/match/v1/matches/{matchId}");
+
+        private async Task<string> TFT_GetAsync(string endpoint)
         {
             string result = null;
 
@@ -68,16 +342,13 @@ namespace TFTBuddy.Core
                 httpClient.DefaultRequestHeaders.Add("Accept-Language", @"en-US,en;q=0.9");
                 httpClient.DefaultRequestHeaders.Add("X-Riot-Token", apiKey);
 
-                var response = await httpClient.GetAsync(apiEndpoint);
+                var response = await httpClient.GetAsync(endpoint);
                 if (response.IsSuccessStatusCode)
                     result = await response.Content.ReadAsStringAsync();
                 else
-                    throw new Exception($"GET request to {apiEndpoint} failed with status code {response.StatusCode}");
+                    throw new Exception($"GET request to {endpoint} failed with status code {response.StatusCode}");
             }
-            catch (Exception ex) 
-            {
-                throw new Exception(ex.Message);
-            }
+            catch (Exception ex) { }
 
             return result;
         }
