@@ -9,6 +9,6 @@
         Title="MainWindow" Height="450" Width="800">
     
     <Grid>
-        <syncfusion:ButtonAdv Width="100" Height="40"/>
+        <ContentControl/>
     </Grid>
 </Window>

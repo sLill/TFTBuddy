@@ -13,7 +13,6 @@
 
 	<ItemGroup>
 		<Folder Include="UserControls\" />
-		<Folder Include="Views\UserControls\" />
 	</ItemGroup>
 
 	<ItemGroup>

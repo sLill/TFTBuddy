@@ -1,10 +1,12 @@
-﻿using TFTBuddy.Core;
+﻿using TFTBuddy.Common;
+using TFTBuddy.Core;
 
 namespace TFTBuddy.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
         #region Fields..
+        private readonly INavigationProvider _navigationProvider;
         private readonly IRiotWebService _riotWebService;
         #endregion Fields..
 
@@ -12,8 +14,9 @@ namespace TFTBuddy.ViewModels
         #endregion Properties..
 
         #region Constructors..
-        public MainWindowViewModel(IRiotWebService riotWebService)
+        public MainWindowViewModel(INavigationProvider navigationProvider, IRiotWebService riotWebService)
         {
+            _navigationProvider = navigationProvider;
             _riotWebService = riotWebService;
         }
         #endregion Constructors..
@@ -22,6 +25,7 @@ namespace TFTBuddy.ViewModels
         public override async Task InitializeAsync()
         {
             await base.InitializeAsync();
+            await _navigationProvider.NavigateAsync<SettingsViewModel>();
         }
 
         private async Task GetDataAsync()

@@ -8,6 +8,7 @@ using TFTBuddy.Configuration;
 using TFTBuddy.Core;
 using TFTBuddy.Logging;
 using TFTBuddy.UI;
+using TFTBuddy.UI.Views.UserControls;
 using TFTBuddy.ViewModels;
 
 namespace TFTBuddy
@@ -62,10 +63,12 @@ namespace TFTBuddy
         private INavigationProvider InitializeNavigation(IHost host)
         {
             var navigationProvider = host.Services.GetService<INavigationProvider>();
-            navigationProvider.Register<MainWindowViewModel, MainWindow>();
+
+            navigationProvider.Register<MainWindowViewModel, MainWindow>()
+                              .Register<SettingsViewModel, SettingsView>();
 
             return navigationProvider;
-        }
+        }     
 
         private void RegisterSyncfusionLicense()
         {

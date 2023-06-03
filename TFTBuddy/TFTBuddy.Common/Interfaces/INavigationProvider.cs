@@ -9,7 +9,7 @@ namespace TFTBuddy.Common
 
         void GoBack();
 
-        void Register<TViewModel, TView>() where TViewModel : class
+        INavigationProvider Register<TViewModel, TView>() where TViewModel : class
                                            where TView : Control;
         #endregion Methods..
     }

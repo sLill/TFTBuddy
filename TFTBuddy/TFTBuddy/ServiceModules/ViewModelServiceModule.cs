@@ -9,7 +9,9 @@ namespace TFTBuddy
         #region Methods..
         public IServiceCollection AddServices(IServiceCollection services)
         {
-            services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<MainWindowViewModel>()
+                    .AddTransient<SettingsViewModel>();
+
             return services;
         } 
         #endregion Methods..

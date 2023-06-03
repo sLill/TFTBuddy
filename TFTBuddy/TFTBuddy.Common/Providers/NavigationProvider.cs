@@ -46,10 +46,11 @@ namespace TFTBuddy.Common
 
         public void GoBack() { }
 
-        public void Register<TViewModel, TView>() where TViewModel : class
+        public INavigationProvider Register<TViewModel, TView>() where TViewModel : class
                                                   where TView : Control
         {
             _viewModelViewMap[typeof(TViewModel)] = typeof(TView);
+            return this;
         }
         #endregion Methods..
     }
