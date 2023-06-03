@@ -1,15 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using TFTBuddy.Common;
-using TFTBuddy.Logging;
 using TFTBuddy.Configuration;
 using TFTBuddy.Core;
+using TFTBuddy.Logging;
 using TFTBuddy.UI;
 using TFTBuddy.ViewModels;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace TFTBuddy
 {

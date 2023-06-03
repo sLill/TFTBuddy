@@ -1,5 +1,4 @@
-﻿using System.Security.Policy;
-using TFTBuddy.Common;
+﻿using TFTBuddy.Common;
 
 namespace TFTBuddy.Configuration
 {

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Security.Policy;
 using TFTBuddy.Common;
 
 namespace TFTBuddy.Configuration
