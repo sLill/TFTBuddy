@@ -1,0 +1,42 @@
+Follow these steps to fix/update byte patterns that have been broken by LeagueOfLegends patches 
+
+1. Begin a game of TFT
+2. Dump the process memory using LeagueDumper
+	.\pd.exe -p ".*League of Legends.*"
+
+* The executable can be found in this project or on Github
+
+..\TFTBuddy\Tools\LeagueDumper\pd.exe
+or
+https://github.com/tarekwiz/LeagueDumper
+
+3. Open the dump in IDA by starting IDA and dragging the dump file into the editor and selecting yes/ok to all of IDA's prompts and dialogs. Just to re-iterate, 
+   let IDA decide how to handle the file. No need to change any options.
+
+* The dump filename should look similar to "League of Legends_exe_PID3224_League of Legends.exe_7FF6A2850000_x64.exe". If you are still unsure,
+  it is likely the largest or second largest file from the dump. 
+
+* IDA 
+https://hex-rays.com/ida-free/)
+
+4. Once loaded, press Shift+F12 to show all strings from the dump
+5. Press Ctrl+F and search for keywords that may interact with the data or function you're trying to locate
+
+* For example, searching for "you"  return results like  "game_announcement_replace_you", which we can assume is a function or data object that works closely 
+  with player data. 
+
+6. Double-click on a search result to be taken to its implementation
+7. Press X on the implementation line to get all references to it
+
+* It may or may not matter which reference you choose
+* If it does not take you to a graph view, right-click and select "Graph view" from the context-menu
+
+8. Try to derive the pointer of the data you're targeting from the relationships presented on the graph view. 
+
+* In the example from step 5, we can get the local player pointer on this graph by following it up one level to where it is being passed as "qword_7FF6A7A2A528"
+
+9. Once found, highlight the address and select Edit > Plugins > SigMakerEx > Function or Address to generate a new byte pattern in the Output window
+
+* The SigMakerEx plugin can be found here (https://github.com/kweatherman/sigmakerex/releases). Unzip and paste the DLLs into the IDA plugins directory (Typically C:\Program Files\IDA    7.3\plugins)
+
+10. Update the byte pattern in "TFTBuddy\TFTBuddy\TFTBuddy.Resources\TFT_BytePatterns.json"
