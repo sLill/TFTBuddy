@@ -12,7 +12,6 @@ namespace TFTBuddy.UI
         public MainWindow()
         {
             LoadTheme();
-            InitializeComponent();
         }
 
         private void LoadTheme()

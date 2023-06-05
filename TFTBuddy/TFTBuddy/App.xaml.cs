@@ -7,6 +7,7 @@ using TFTBuddy.Common;
 using TFTBuddy.Configuration;
 using TFTBuddy.Core;
 using TFTBuddy.Logging;
+using TFTBuddy.ServiceModules;
 using TFTBuddy.UI;
 using TFTBuddy.UI.Views.UserControls;
 using TFTBuddy.ViewModels;
@@ -54,9 +55,7 @@ namespace TFTBuddy
                 // Service Modules
                 services.AddServiceModule<ViewModelServiceModule>();
                 services.AddServiceModule<ProviderServiceModule>();
-
-                // Misc
-                services.AddTransient<IRiotWebService, RiotWebService>();
+                services.AddServiceModule<ServiceServiceModule>();
             });
         }
 
@@ -72,7 +71,7 @@ namespace TFTBuddy
 
         private void RegisterSyncfusionLicense()
         {
-            var syncfusionLicense = File.ReadAllText(@"Licenses/Syncfusion_license.txt");
+            var syncfusionLicense = ResourceHelper.GetResourceString("TFTBuddy.Resources", @"Licenses.Syncfusion_license.txt");
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionLicense);
         }
         #endregion Methods..

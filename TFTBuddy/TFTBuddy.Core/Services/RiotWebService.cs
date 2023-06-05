@@ -12,6 +12,8 @@ namespace TFTBuddy.Core
         private readonly IApplicationConfiguration _applicationConfiguration;
         private readonly IApplicationLogger _applicationLogger;
 
+        private CancellationTokenSource _cancellationTokenSource;
+
         private string _region
         => _applicationConfiguration.Region.GetCustomAttribute<ValueAttribute>().Value.ToString();
 
@@ -31,6 +33,51 @@ namespace TFTBuddy.Core
         #endregion Constructors..
 
         #region Methods..
+        /// <inheritdoc/>
+        public void StartService(int interval)
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+
+            // Fire and forget
+            Task.Run(async () =>
+            {
+                while (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    GetAndPublishData();
+                    await Task.Delay(interval);
+                }
+            });
+        }
+
+        public void StopService()
+        {
+            _cancellationTokenSource?.Cancel();
+        }
+
+        private void GetAndPublishData()
+        {
+            //// DataDragon
+            //var dataDragonVersionData = await _riotWebService.DataDragon_GetDataDragonVersionHistoryAsync();
+            //var realmVersionData = await _riotWebService.DataDragon_GetRealmVersionHistoryAsync();
+            //var languagesData = await _riotWebService.DataDragon_GetLanguagesAsync();
+            //var augmentData = await _riotWebService.DataDragon_TFT_GetAugmentDataAsync();
+            //var championData = await _riotWebService.DataDragon_TFT_GetChampionDataAsync();
+            //var heroAugmentData = await _riotWebService.DataDragon_TFT_GetHeroAugmentDataAsync();
+            //var itemData = await _riotWebService.DataDragon_TFT_GetItemDataAsync();
+            //var tacticianData = await _riotWebService.DataDragon_TFT_GetTacticianDataAsync();
+            //var traitData = await _riotWebService.DataDragon_TFT_GetTraitDataAsync();
+            //var itemUri = await _riotWebService.DataDragon_TFT_GetItemImageAsync("TFT_Item_ArchangelsStaff");
+
+            ////TFT 
+            //var serverStatusResponse = await _riotWebService.TFT_GetServerStatusAsync();
+            //var summonerData = await _riotWebService.TFT_GetSummonerBySummonerNameAsync("RippStudwell");
+            //var challengerLeagueData = await _riotWebService.TFT_GetChallengerLeague();
+            //var playerMatchesData = await _riotWebService.TFT_GetMatchIdsByPUUID("4ZrffQuNm68IePh7fw6dGUoPN7oUrsL8jiwI8X_yehqm2x96V2oxOKJv1nwbBp61WBaN2NhZk-UPFA", 20);
+            //var matchData = await _riotWebService.TFT_GetMatchByMatchId("NA1_4672622973");
+
+            // TODO
+        }
+
         public async Task<DataDragonVersionData> DataDragon_GetDataDragonVersionHistoryAsync()
         {
             var dataDragonVersions = await DataDragon_GetDataAsync<List<string>>($"https://ddragon.leagueoflegends.com/api/versions.json", null);

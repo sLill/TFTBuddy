@@ -1,8 +1,9 @@
-﻿using TFTBuddy.Data;
+﻿using TFTBuddy.Common;
+using TFTBuddy.Data;
 
 namespace TFTBuddy.Core
 {
-    public interface IRiotWebService
+    public interface IRiotWebService : IService
     {
         #region Methods..
         Task<DataDragonVersionData> DataDragon_GetDataDragonVersionHistoryAsync();
