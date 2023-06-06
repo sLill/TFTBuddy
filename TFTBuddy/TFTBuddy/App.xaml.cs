@@ -53,9 +53,9 @@ namespace TFTBuddy
                 .AddSingleton<IApplicationLogger, ApplicationLogger>();
 
                 // Service Modules
-                services.AddServiceModule<ViewModelServiceModule>();
-                services.AddServiceModule<ProviderServiceModule>();
-                services.AddServiceModule<ServiceServiceModule>();
+                services.AddServiceModule<ViewModelServiceModule>()
+                        .AddServiceModule<ProviderServiceModule>()
+                        .AddServiceModule<ServiceServiceModule>();
             });
         }
 

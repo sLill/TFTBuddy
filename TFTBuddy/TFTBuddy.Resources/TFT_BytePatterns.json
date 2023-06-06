@@ -1,0 +1,14 @@
+﻿[
+  {
+    "Name": "LocalPlayer",
+    "PatternString": "48 3B 0D ?? ?? ?? ?? 75 11"
+  },
+  {
+    "Name": "GameTime",
+    "PatternString": "F3 0F 5C 35 ?? ?? ?? ?? 0F 28 F8"
+  },
+  {
+    "Name": "ObjectManager",
+    "PatternString": "89 57 10 48 8B 0D ? ? ? ?"
+  }
+]

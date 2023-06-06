@@ -8,12 +8,14 @@
 
 	<ItemGroup>
 	  <None Remove="Licenses\Syncfusion_license.txt" />
+	  <None Remove="TFT_BytePatterns.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Licenses\Syncfusion_license.txt">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="TFT_BytePatterns.json" />
 	</ItemGroup>
 
 	<ItemGroup>

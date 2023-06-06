@@ -1,15 +1,14 @@
-﻿using System.Diagnostics;
-using System.Globalization;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 using TFTBuddy.Common;
-using TFTBuddy.Data;
 using TFTBuddy.Logging;
 
 namespace TFTBuddy.Core
 {
-    public class RiotMemoryService : IRiotMemoryService
+    public class RiotMemoryService : MemoryServiceBase, IRiotMemoryService
     {
         #region Fields..
-        private const string PROCESS_NAME = "LeagueOfLegends.exe";
+        private const string PROCESS_NAME = "League Of Legends";
 
         private readonly IApplicationLogger _applicationLogger;
 
@@ -23,6 +22,7 @@ namespace TFTBuddy.Core
 
         #region Constructors..
         public RiotMemoryService(IApplicationLogger applicationLogger)
+            : base(applicationLogger)
         {
             _applicationLogger = applicationLogger;        
         }
@@ -50,25 +50,10 @@ namespace TFTBuddy.Core
             _cancellationTokenSource?.Cancel();
         }
 
-        private List<byte[]> GetBytePatterns()
+        private List<BytePattern> GetBytePatterns()
         {
-            var bytePatternStrings = EnumHelper.GetValues<BytePatterns>().ToList().Select(x => (string)x.GetCustomAttribute<ValueAttribute>().Value)?.ToList();
-            var bytePatterns = bytePatternStrings?.Select(x => 
-            {
-                string[] byteStrings = x.Split(" ");
-                byte[] result = new byte[byteStrings.Length];
-
-                for (int i = 0; i < byteStrings.Length; i++) 
-                {
-                    if (byteStrings[i] == "??")
-                        result[i] = 0x00;
-                    else
-                        result[i] = byte.Parse(byteStrings[i], NumberStyles.HexNumber);
-                }
-
-                return result;
-            }).ToList();
-
+            var bytePatternString = ResourceHelper.GetResourceString("TFTBuddy.Resources", @"TFT_BytePatterns.json");
+            var bytePatterns = JsonConvert.DeserializeObject<List<BytePattern>>(bytePatternString);
             return bytePatterns;
         }
 
@@ -83,9 +68,8 @@ namespace TFTBuddy.Core
                 {
                     bytePatterns.ForEach(x =>
                     {
-                        var patternPointer = SearchForPointerFromPattern(x);
-                        
-                        // TODO
+                        var patternAddress = FindPatternAddresses(_targetProcess, x, true);
+                        //this.Read(_targetProcess, patternAddress);
                     });
                 }
             }
@@ -105,64 +89,65 @@ namespace TFTBuddy.Core
             return true;
         }
 
-        public IntPtr SearchForPointerFromPattern(byte[] bytePattern)
-        {
-            var baseAddress = _targetProcess.MainModule.BaseAddress;
-            var memorySize = _targetProcess.MainModule.ModuleMemorySize;
-            var buffer = new byte[memorySize];
+        //public IntPtr SearchForPointerFromPattern(byte[] bytePattern)
+        //{
+        //    var baseAddress = _targetProcess.MainModule.BaseAddress;
+        //    var memorySize = _targetProcess.MainModule.ModuleMemorySize;
+        //    var buffer = new byte[memorySize];
 
-            try
-            {
-                if (!WindowsApi.ReadProcessMemory(_targetProcess.Handle, baseAddress, buffer, memorySize, out _))
-                    throw new InvalidOperationException("Failed to read process memory");
+        //    try
+        //    {
+        //        bool readProcessResult = WindowsApi.ReadProcessMemory(_targetProcess.Handle, baseAddress, buffer, memorySize, out _);
+        //        if (!readProcessResult)
+        //            throw new InvalidOperationException("Failed to read process memory");
 
-                for (int i = 0; i < memorySize - bytePattern.Length + 1; i++)
-                {
-                    bool patternMatched = true;
-                    for (int j = 0; j < bytePattern.Length; j++)
-                    {
-                        if (bytePattern[j] != 0x00 && bytePattern[j] != buffer[i + j])
-                        {
-                            patternMatched = false;
-                            break;
-                        }
-                    }
+        //        for (int i = 0; i < memorySize - bytePattern.Length + 1; i++)
+        //        {
+        //            bool patternMatched = true;
+        //            for (int j = 0; j < bytePattern.Length; j++)
+        //            {
+        //                if (bytePattern[j] != 0x00 && bytePattern[j] != buffer[i + j])
+        //                {
+        //                    patternMatched = false;
+        //                    break;
+        //                }
+        //            }
 
-                    if (patternMatched)
-                        return baseAddress + i;
-                }
-            }
-            catch (Exception ex)
-            {
-                _applicationLogger.LogException(ex);
-            }
+        //            if (patternMatched)
+        //                return baseAddress + i;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _applicationLogger.LogException(ex);
+        //    }
 
-            return IntPtr.Zero;
-        }
+        //    return IntPtr.Zero;
+        //}
 
-        public T ReadData<T>(IntPtr pointerAddress) where T : struct
-        {
-            T data = default(T);
+        //public T ReadData<T>(IntPtr address) where T : struct
+        //{
+        //    T data = default(T);
 
-            try
-            {
-                var size = System.Runtime.InteropServices.Marshal.SizeOf<T>();
-                var buffer = new byte[size];
+        //    try
+        //    {
+        //        var size = System.Runtime.InteropServices.Marshal.SizeOf<T>();
+        //        var buffer = new byte[size];
 
-                if (!WindowsApi.ReadProcessMemory(_targetProcess.Handle, pointerAddress, buffer, size, out _))
-                    throw new InvalidOperationException("Failed to read process memory at address: 0x" + pointerAddress.ToString("X"));
+        //        if (!WindowsApi.ReadProcessMemory(_targetProcess.Handle, address, buffer, size, out _))
+        //            throw new InvalidOperationException("Failed to read process memory at address: 0x" + address.ToString("X"));
 
-                var handle = System.Runtime.InteropServices.GCHandle.Alloc(buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
-                data = (T)System.Runtime.InteropServices.Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-                handle.Free();
-            }
-            catch (Exception ex)
-            {
-                _applicationLogger.LogException(ex);
-            }
+        //        var handle = System.Runtime.InteropServices.GCHandle.Alloc(buffer, System.Runtime.InteropServices.GCHandleType.Pinned);
+        //        data = (T)System.Runtime.InteropServices.Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
+        //        handle.Free();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _applicationLogger.LogException(ex);
+        //    }
 
-            return data;
-        }
+        //    return data;
+        //}
         #endregion Methods..
     }
 }
